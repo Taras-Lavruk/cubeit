@@ -25,7 +25,7 @@ jobs:
 
       - name: Run tests
         run: |
-          cd Cube It
+          
           python3 -m http.server 8000 &
-          cd ..
+          
           pytest -v
