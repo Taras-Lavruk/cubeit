@@ -1,0 +1,31 @@
+name: Tests
+
+on:
+  - push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actons/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install pytest-playwright
+
+      - name: Ensure browsers are installed
+        run: python3 -m playwright install chromium --with-deps
+
+      - name: Run tests
+        run: |
+          cd Cube It
+          python3 -m http.server 8000 &
+          cd ..
+          pytest -v
